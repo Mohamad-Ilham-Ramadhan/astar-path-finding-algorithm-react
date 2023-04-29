@@ -11,6 +11,10 @@ const boardSlice = createSlice({
      setBoxes(state, action) {
       console.log
       state.boxes = action.payload;
+     },
+     setXY(state, action) {
+      state.xLength = action.payload.xLength;
+      state.yLength = action.payload.yLength;
      }
    },
  })
@@ -18,6 +22,6 @@ const boardSlice = createSlice({
  // Extract the action creators object and the reducer
  const { actions, reducer } = boardSlice
  // Extract and export each action creator by name
- export const { addBoard, setBoxes } = actions
+ export const { setXY, setBoxes } = actions
  // Export the reducer, either as a default or named export
  export default reducer
