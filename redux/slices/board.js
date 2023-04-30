@@ -68,7 +68,7 @@ const boardSlice = createSlice({
             // newBoard[current[1]][current[0]] = 2;
             path.unshift({...current, type: current.type === 'path' ? 'founded-path' : current.type})
           }
-          return { path };
+          return path;
 
         }
 
@@ -190,7 +190,8 @@ const boardSlice = createSlice({
         console.log('SAMPE SINI!', typeof path, path);
 
         // update state.boxes (for coloring path)
-        for (let box of path.path) {
+        if (path.length === 0) return alert('The end node is not reachable! Please try to remove some walls.');
+        for (let box of path) {
           // con
           state.boxes[box.index] = box;
         }
