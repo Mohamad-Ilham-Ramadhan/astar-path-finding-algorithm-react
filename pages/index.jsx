@@ -30,8 +30,10 @@ export default function Home() {
     for (let i = 0; i < indexes; i++) {
       const y = Math.floor(i / xLength);
       const x = i - (xLength * y);
-      $boxes.push(<Box key={`${x}${y}`} x={x} y={y} />)
+      $boxes.push(<Box key={`${x}${y}`} x={x} y={y} type={Math.round(Math.random() * 10) <= 2 ? 'wall' : 'path'} />)
     }
+
+
 
     return $boxes;
   }
