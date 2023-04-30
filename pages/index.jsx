@@ -77,6 +77,20 @@ export default function Home() {
             }}
           >Generate</button>
         </div>
+        <div className="flex gap-2 justify-center mb-2">
+          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+            <div className="bg-blue-700 w-5 h-5 mr-1"></div>
+            <div>Pick Start</div>
+          </button>
+          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+            <div className="bg-amber-500 w-5 h-5 mr-1"></div>
+            <div>Pick End</div>
+          </button>
+          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+            <div className="bg-black w-5 h-5 mr-1"></div>
+            <div>Draw wall</div>
+          </button>
+        </div>
       </div>
       <div ref={boardRef} id="board" className='grid justify-center	'>
         {boxes}
