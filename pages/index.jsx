@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { setBoxes, setXY, setBox, setPick, setPath } from '@/redux/slices/board';
+import { setBoxes, setXY, setBox, setPick, setPath, setA } from '@/redux/slices/board';
 import Box from '../components/box';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] });
 export default function Home() {
   const dispatch = useDispatch();
   const board = useSelector( state => state.board);
-  const {xLength, yLength, boxes} = board;
+  const {xLength, yLength, boxes, a, b} = board;
   const boardRef = useRef(null);
   const [xInput, setXInput] = useState('');
   const [yInput, setYInput] = useState('');

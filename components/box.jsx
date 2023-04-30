@@ -7,7 +7,7 @@ export default function Box({x,y,index,type, ...props}) {
    if (type === 'path') {
       bg = 'bg-slate-100';
    } else if (type === 'founded-path') {
-      bg = 'bg-sky-400';
+      bg = 'bg-cyan-300';
    } else if (type === 'wall') {
       bg = 'bg-slate-950';
    } else if (type === 'start') {
