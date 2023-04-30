@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { setBoxes, setXY, setBox, setPick } from '@/redux/slices/board';
+import { setBoxes, setXY, setBox, setPick, setPath } from '@/redux/slices/board';
 import Box from '../components/box';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -100,7 +100,12 @@ export default function Home() {
       </div>
       
       <div className="flex gap-2 justify-center mb-2">
-        <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black">Start</button>
+        <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black"
+          onClick={() => {
+            console.log('A* algorithm');
+            dispatch(setPath());
+          }}
+        >Start</button>
         <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black">Clear</button>
       </div>
 

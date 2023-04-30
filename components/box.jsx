@@ -16,6 +16,6 @@ export default function Box({x,y,index,type, ...props}) {
       bg = 'bg-amber-500';
    }
    return (
-      <div {...props} className={`border-2 border-slate-400 border-solid ${bg}`} data-x={x} data-y={y} data-index={index} type={type}></div>
+      <div {...props} className={`border-2 border-slate-400 border-solid ${bg}`} data-x={x} data-y={y} data-index={index} data-type={type}></div>
    );
 }
