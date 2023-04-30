@@ -8,15 +8,21 @@ const setPathListener = createListenerMiddleware();
 setPathListener.startListening({
   actionCreator: setPath,
   effect: async (action, listenerApi) => {
+    listenerApi.cancelActiveListeners();
+    // console.log('cancelled', cancel);
     const path = listenerApi.getState().board.path;
     if (path.length === 0) {
       return alert('The end node is not reachable! Please try to remove some walls.');
     }
     for (let i = 0; i < path.length; i++) {
-      setTimeout(() => {
-        const box = path[i];
-        listenerApi.dispatch( setFoundedPath(box) );
-      }, i * 40);
+      // setTimeout(() => {
+      //   const box = path[i];
+      //   listenerApi.dispatch( setFoundedPath(box) );
+      // }, i * 40);
+      await listenerApi.delay(40);
+      const box = path[i];
+      listenerApi.dispatch(setFoundedPath(box));
+
     }
   }
 });
