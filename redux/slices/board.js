@@ -31,6 +31,15 @@ const boardSlice = createSlice({
           state.start = {index, x, y, type: 'path'};
         }
       }
+      if (state.pick === 'end') {
+        if (state.end === null) {
+          state.end = {index, x, y, type: 'end'};
+        } else {
+          console.log('state.end.index', state.end.index);
+          state.boxes[state.end.index] = {...state.end, type: 'path'};
+          state.end = {index, x, y, type: 'path'};
+        }
+      }
       state.boxes[index] = {index, x, y, type: state.pick};
      },
      setPick(state, action) {
