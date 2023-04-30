@@ -22,6 +22,7 @@ const boardSlice = createSlice({
      },
      setBox(state, action) {
       const {index, x, y} = action.payload;
+      let type = state.pick;
       if (state.pick === 'start') {
         if (state.start === null) {
           state.start = {index, x, y, type: 'start'};
@@ -30,8 +31,7 @@ const boardSlice = createSlice({
           state.boxes[state.start.index] = {...state.start, type: 'path'};
           state.start = {index, x, y, type: 'path'};
         }
-      }
-      if (state.pick === 'end') {
+      } else if (state.pick === 'end') {
         if (state.end === null) {
           state.end = {index, x, y, type: 'end'};
         } else {
@@ -39,8 +39,12 @@ const boardSlice = createSlice({
           state.boxes[state.end.index] = {...state.end, type: 'path'};
           state.end = {index, x, y, type: 'path'};
         }
+      } else if (state.pick === 'wall') {
+        if (state.boxes[index].type === 'wall') {
+          type = 'path';
+        }
       }
-      state.boxes[index] = {index, x, y, type: state.pick};
+      state.boxes[index] = {index, x, y, type: type};
      },
      setPick(state, action) {
       state.pick = action.payload;
