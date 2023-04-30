@@ -36,7 +36,6 @@ const boardSlice = createSlice({
         if (state.start === null) {
           state.start = { index, x, y, type: 'start' };
         } else {
-          console.log('state.start.index', state.start.index);
           state.boxes[state.start.index] = { ...state.start, type: 'path' };
           state.start = { index, x, y, type: 'path' };
         }
@@ -167,11 +166,16 @@ const boardSlice = createSlice({
       state.boxes[box.index] = box;
     },
     clearFoundedPath(state, action) {
+      if (state.path.length === 0) return;
       for (let i = 0; i < state.path.length; i++) {
         const box = state.path[i];
+        if (box.type === 'start' || box.type === 'end') continue;
         state.boxes[box.index] = {...box, type: 'path'};
       }
-      state.start = null; state.end = null;
+      state.path = [];
+      // state.boxes[state.start.index] = {...state.start, type: 'path'};
+      // state.boxes[state.end.index] = {...state.end, type: 'path'};
+      // state.start = null; state.end = null;
     }
   },
 })

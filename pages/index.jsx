@@ -16,9 +16,7 @@ export default function Home() {
   const [yInput, setYInput] = useState('');
   const [boardId, setBoardId] = useState(1);
   const pick = board.pick; // 'start', 'end', 'wall', 'path'
-  // console.log('pick', pick);
-  // console.log('board', board);
-  // console.log('boxes', boxes);
+  const path = board.path;
 
   // manual set template because I don't know hot to implement it using tailwindcss
   if (boardRef.current !== null) {
@@ -104,6 +102,9 @@ export default function Home() {
         <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black"
           onClick={() => {
             console.log('A* algorithm');
+            if (path.length > 0) {
+              dispatch( clearFoundedPath());
+            }
             dispatch(setPath());
           }}
         >Start</button>
