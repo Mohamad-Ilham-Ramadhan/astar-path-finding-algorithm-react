@@ -21,6 +21,7 @@ const boardSlice = createSlice({
   },
   reducers: {
     setBoxes(state, action) {
+      state.start = null; state.end = null;
       state.boxes = action.payload;
     },
     setXY(state, action) {
