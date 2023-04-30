@@ -29,6 +29,7 @@ export default function Home() {
   function renderBoxes(board) {
     console.log('renderBoxes');
     const indexes = xLength * yLength;
+    console.log('indexes', indexes);
     let $boxes = [];
     for (let i = 0; i < indexes; i++) {
       const y = Math.floor(i / xLength);
@@ -111,7 +112,7 @@ export default function Home() {
 
       <div ref={boardRef} id="board" className='grid justify-center	'>
         {boxes.length > 0 && boxes.map((b) => (
-          <Box key={`${b.x}${b.y}${boardId}`} x={b.x} y={b.y} type={b.type} index={b.index} 
+          <Box key={b.index} x={b.x} y={b.y} type={b.type} index={b.index} 
             onClick={ () => {
               dispatch(setBox({x: b.x, y: b.y, index: b.index}));
             }}

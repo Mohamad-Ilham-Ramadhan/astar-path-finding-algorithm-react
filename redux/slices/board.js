@@ -13,7 +13,7 @@ const boardSlice = createSlice({
   },
   reducers: {
     setBoxes(state, action) {
-      console.log
+      console.log('setBoxes', action.payload)
       state.boxes = action.payload;
     },
     setXY(state, action) {
