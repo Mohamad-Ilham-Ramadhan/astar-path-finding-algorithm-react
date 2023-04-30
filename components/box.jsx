@@ -1,5 +1,8 @@
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Box({x,y, type}) {
+export default function Box({x,y,index,type, ...props}) {
+   const dispatch = useDispatch();
+   const pick = useSelector( state => state.board.pick)
    let bg = '';
    if (type === 'path') {
       bg = 'bg-slate-100';
@@ -13,6 +16,6 @@ export default function Box({x,y, type}) {
       bg = 'bg-amber-500';
    }
    return (
-      <div className={`border-2 border-slate-400 border-solid ${bg}`} data-x={x} data-y={y} type={type}></div>
+      <div {...props} className={`border-2 border-slate-400 border-solid ${bg}`} data-x={x} data-y={y} data-index={index} type={type}></div>
    );
 }

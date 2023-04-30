@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { setBoxes, setXY } from '@/redux/slices/board';
+import { setBoxes, setXY, setBox, setPick } from '@/redux/slices/board';
 import Box from '../components/box';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -15,9 +15,10 @@ export default function Home() {
   const [xInput, setXInput] = useState('');
   const [yInput, setYInput] = useState('');
   const [boardId, setBoardId] = useState(1);
-
-  console.log('board', board);
-  console.log('boxes', boxes);
+  const pick = board.pick; // 'start', 'end', 'wall', 'path'
+  // console.log('pick', pick);
+  // console.log('board', board);
+  // console.log('boxes', boxes);
 
   // manual set template because I don't know hot to implement it using tailwindcss
   if (boardRef.current !== null) {
@@ -26,21 +27,20 @@ export default function Home() {
   }
 
   function renderBoxes(board) {
+    console.log('renderBoxes');
     const indexes = xLength * yLength;
     let $boxes = [];
     for (let i = 0; i < indexes; i++) {
       const y = Math.floor(i / xLength);
       const x = i - (xLength * y);
-      $boxes.push(<Box key={`${x}${y}`} x={x} y={y} type={Math.round(Math.random() * 10) <= 2 ? 'wall' : 'path'} />)
+      $boxes.push({x, y, type: Math.round(Math.random() * 10) <= 2 ? 'wall' : 'path', index: i})
     }
-
-
-
     return $boxes;
   }
+  
 
   useEffect(() => { dispatch(setBoxes(renderBoxes(board)))}, [xLength, yLength, boardId]);
-  
+
   return (
     <main>
       <div>
@@ -78,22 +78,34 @@ export default function Home() {
           >Generate</button>
         </div>
         <div className="flex gap-2 justify-center mb-2">
-          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+          <button className={`bg-white rounded flex items-center p-2 ${pick === 'start' && 'border-2 border-black' }`}
+            onClick={() => dispatch(setPick('start'))}
+          >
             <div className="bg-blue-700 w-5 h-5 mr-1"></div>
             <div>Pick Start</div>
           </button>
-          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+          <button className={`bg-white rounded flex items-center p-2 ${pick === 'end' && 'border-2 border-black' }`}
+            onClick={() => dispatch(setPick('end'))}
+          >
             <div className="bg-amber-500 w-5 h-5 mr-1"></div>
             <div>Pick End</div>
           </button>
-          <button className="bg-white rounded flex items-center p-2 focus:border-2 focus:border-black">
+          <button className={`bg-white rounded flex items-center p-2 ${pick === 'wall' && 'border-2 border-black' }`}
+            onClick={() => dispatch(setPick('wall'))}
+          >
             <div className="bg-black w-5 h-5 mr-1"></div>
             <div>Draw wall</div>
           </button>
         </div>
       </div>
       <div ref={boardRef} id="board" className='grid justify-center	'>
-        {boxes}
+        {boxes.length > 0 && boxes.map((b) => (
+          <Box key={`${b.x}${b.y}${boardId}`} x={b.x} y={b.y} type={b.type} index={b.index} 
+            onClick={ () => {
+              dispatch(setBox({x: b.x, y: b.y, index: b.index}));
+            }}
+          />
+        ))}
       </div>
     </main>
   )
