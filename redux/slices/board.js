@@ -166,12 +166,19 @@ const boardSlice = createSlice({
       const box = action.payload;
       state.boxes[box.index] = box;
     },
+    clearFoundedPath(state, action) {
+      for (let i = 0; i < state.path.length; i++) {
+        const box = state.path[i];
+        state.boxes[box.index] = {...box, type: 'path'};
+      }
+      state.start = null; state.end = null;
+    }
   },
 })
 
 // Extract the action creators object and the reducer
 const { actions, reducer } = boardSlice
 // Extract and export each action creator by name
-export const { setXY, setBoxes, setBox, setPick, setPath,setFoundedPath } = actions
+export const { setXY, setBoxes, setBox, setPick, setPath, setFoundedPath, clearFoundedPath } = actions
 // Export the reducer, either as a default or named export
 export default reducer

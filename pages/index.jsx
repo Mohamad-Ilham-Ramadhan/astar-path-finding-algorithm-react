@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import {useState, useRef, useEffect} from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { setBoxes, setXY, setBox, setPick, setPath, setA } from '@/redux/slices/board';
+import { setBoxes, setXY, setBox, setPick, setPath, clearFoundedPath } from '@/redux/slices/board';
 import Box from '../components/box';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -107,7 +107,11 @@ export default function Home() {
             dispatch(setPath());
           }}
         >Start</button>
-        <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black">Clear</button>
+        <button className="bg-white rounded p-2 active:outline active:outline-2 active:outline-black"
+          onClick={() => {
+            dispatch( clearFoundedPath() );
+          }}
+        >Clear</button>
       </div>
 
       <div ref={boardRef} id="board" className='grid justify-center	'>
