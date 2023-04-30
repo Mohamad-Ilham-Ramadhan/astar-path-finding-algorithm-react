@@ -14,6 +14,7 @@ export default function Home() {
   const boardRef = useRef(null);
   const [xInput, setXInput] = useState('');
   const [yInput, setYInput] = useState('');
+  const [boardId, setBoardId] = useState(1);
 
   console.log('board', board);
   console.log('boxes', boxes);
@@ -38,7 +39,7 @@ export default function Home() {
     return $boxes;
   }
 
-  useEffect(() => { dispatch(setBoxes(renderBoxes(board)))}, [xLength, yLength]);
+  useEffect(() => { dispatch(setBoxes(renderBoxes(board)))}, [xLength, yLength, boardId]);
   
   return (
     <main>
@@ -54,7 +55,7 @@ export default function Home() {
               }}
               onBlur={(e) => {
                 if (e.target.value < 2) e.target.value = 2;
-                setXInput(e.target.value);;
+                setXInput(e.target.value);
               }}/>
           </label>
           <label htmlFor="x-length" className="mr-2">
@@ -72,6 +73,7 @@ export default function Home() {
           <button className="rounded bg-blue-400 active:bg-blue-500 px-4"
             onClick={() => {
               dispatch(setXY({xLength: Number(xInput), yLength: Number(yInput)}));
+              setBoardId( prevId => prevId + 1);
             }}
           >Generate</button>
         </div>
