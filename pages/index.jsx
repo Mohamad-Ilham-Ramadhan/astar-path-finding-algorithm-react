@@ -26,7 +26,6 @@ export default function Home() {
   
 
   useEffect(() => { 
-    console.log('component did mount');
     setXGrid(xLength); setYGrid(yLength);
     dispatch(setBoxes())
   }, []);

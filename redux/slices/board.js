@@ -27,7 +27,6 @@ const boardSlice = createSlice({
       state.yLength = action.payload;
     },
     setBoxes(state, action) {
-      console.log('setBoxes called');
       state.path = []; // remove bug: bug generate board: there is affected box (wall box become path box) by previous path-finding when we generate a new board
       state.boxes = [];
       const indexes = state.xLength * state.yLength;
@@ -57,7 +56,6 @@ const boardSlice = createSlice({
         if (state.end === null) {
           state.end = { index, x, y, type: 'end' };
         } else {
-          console.log('state.end.index', state.end.index);
           state.boxes[state.end.index] = { ...state.end, type: 'path' };
           state.end = { index, x, y, type: 'path' };
         }
@@ -79,13 +77,9 @@ const boardSlice = createSlice({
       const yLength = Number(state.yLength);
 
       function reconstructPath(cameFrom, current, board) {
-        console.log('cameFrom', cameFrom);
-        // const newBoard = _.cloneDeep(board);
         let path = [current];
-        // newBoard[current[1]][current[0]] = 2;
         while (cameFrom.get(nodeToKey(current)) !== undefined) {
           current = cameFrom.get(nodeToKey(current));
-          // newBoard[current[1]][current[0]] = 2;
           path.unshift({ ...current, type: current.type === 'path' ? 'founded-path' : current.type })
         }
         return path;
@@ -109,13 +103,7 @@ const boardSlice = createSlice({
       let openSet = [start];
       let cameFrom = new Map();
 
-      // O(n^2) (harus diakali ini)
       let gScore = {};
-      // for (let y = 0; y < board.length; y++) {
-      //   for (let x = 0; x < board[y].length; x++) {
-      //     gScore[`${x},${y}`] = Infinity;
-      //   }
-      // }
       // For node n, fScore[n] := gScore[n] + h(n). fScore[n] represents our current best guess as to
       // how cheap a path could be from start to finish if it goes through n.
       let fScore = Object.assign({}, gScore);
@@ -125,10 +113,8 @@ const boardSlice = createSlice({
 
       while (openSet.length > 0) {
         const current = openSet.pop();
-        console.log('current', current);
         if (current.x == state.end.x && current.y == state.end.y) {
           // return reconstructPath(cameFrom, current, state.boxes);
-          console.log('reconstructPath', reconstructPath(cameFrom, current, state.boxes));
           state.path = reconstructPath(cameFrom, current, state.boxes);
         }
 
@@ -176,7 +162,6 @@ const boardSlice = createSlice({
         }
       }
 
-      console.log('end of setPath');
     },
     setFoundedPath(state, action) {
       const box = action.payload;
