@@ -175,9 +175,9 @@ const boardSlice = createSlice({
         state.boxes[box.index] = { ...box, type: 'path' };
       }
       state.path = [];
+      // state.start = null; state.end = null;
       // state.boxes[state.start.index] = {...state.start, type: 'path'};
       // state.boxes[state.end.index] = {...state.end, type: 'path'};
-      // state.start = null; state.end = null;
     }
   },
 })
