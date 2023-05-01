@@ -9,8 +9,8 @@ import { store } from "../store";
 const boardSlice = createSlice({
   name: 'board',
   initialState: {
-    xLength: 8,
-    yLength: 8,
+    xLength: 15,
+    yLength: 15,
     boxes: [],
     start: null,
     end: null,

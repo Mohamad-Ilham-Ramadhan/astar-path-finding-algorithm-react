@@ -20,8 +20,8 @@ export default function Home() {
 
   // manual set template because I don't know hot to implement it using tailwindcss
   if (boardRef.current !== null) {
-    boardRef.current.style.gridTemplateRows = `repeat(${yGrid}, 20px)`;
-    boardRef.current.style.gridTemplateColumns = `repeat(${xGrid}, 20px)`;
+    boardRef.current.style.gridTemplateRows = `repeat(${yGrid}, 18px)`;
+    boardRef.current.style.gridTemplateColumns = `repeat(${xGrid}, 18px)`;
   }
   
 
@@ -107,7 +107,7 @@ export default function Home() {
         >Clear</button>
       </div>
 
-      <div ref={boardRef} id="board" className='grid justify-center	'>
+      <div ref={boardRef} id="board" className='grid justify-center	mb-8'>
         {boxes.length > 0 && boxes.map((b) => (
           <Box key={b.index} x={b.x} y={b.y} type={b.type} index={b.index} 
             onClick={ () => {
