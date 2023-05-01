@@ -9,8 +9,8 @@ import { store } from "../store";
 const boardSlice = createSlice({
   name: 'board',
   initialState: {
-    xLength: 15,
-    yLength: 15,
+    xLength: 30,
+    yLength: 30,
     boxes: [],
     start: null,
     end: null,
@@ -43,8 +43,8 @@ const boardSlice = createSlice({
       state.yLength = action.payload.yLength;
     },
     setBox(state, action) {
+      if (state.pick === '') return;
       const { index, x, y } = action.payload;
-
       let type = state.pick;
       if (state.pick === 'start') {
         if (state.start === null) {

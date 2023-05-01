@@ -32,7 +32,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main >
       <div>
         <h1 className="text-center text-2xl font-semibold mb-2">Generate board</h1>
         <div className="flex justify-center mb-2">
