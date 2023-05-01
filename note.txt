@@ -1,0 +1,2 @@
+todo
+- bug generate board: there is affected box by previous path-finding when we generate a new board

@@ -20,9 +20,22 @@ const boardSlice = createSlice({
     b: '',
   },
   reducers: {
+    setXLength(state, action) {
+      state.xLength = action.payload;
+    },
+    setYLength(state, action) {
+      state.yLength = action.payload;
+    },
     setBoxes(state, action) {
+      console.log('setBoxes called');
+      state.boxes = [];
+      const indexes = state.xLength * state.yLength;
+      for (let i = 0; i < indexes; i++) {
+        const y = Math.floor(i / state.xLength);
+        const x = i - (state.xLength * y);
+        state.boxes.push({ x, y, type: Math.round(Math.random() * 10) <= 2 ? 'wall' : 'path', index: i })
+      }
       state.start = null; state.end = null;
-      state.boxes = action.payload;
     },
     setXY(state, action) {
       state.xLength = action.payload.xLength;
@@ -61,6 +74,8 @@ const boardSlice = createSlice({
     setPath(state, action) {
       // convert to cartesian coordinates
       const start = Object.assign({}, state.start);
+      const xLength = Number(state.xLength);
+      const yLength = Number(state.yLength);
 
       function reconstructPath(cameFrom, current, board) {
         console.log('cameFrom', cameFrom);
@@ -109,6 +124,7 @@ const boardSlice = createSlice({
 
       while (openSet.length > 0) {
         const current = openSet.pop();
+        console.log('current', current);
         if (current.x == state.end.x && current.y == state.end.y) {
           // return reconstructPath(cameFrom, current, state.boxes);
           console.log('reconstructPath', reconstructPath(cameFrom, current, state.boxes));
@@ -124,17 +140,17 @@ const boardSlice = createSlice({
         }
 
         if (current.y - 1 >= 0 && current.type !== 'wall') {
-          const box = Object.assign({}, state.boxes[current.index - state.xLength]);
+          const box = Object.assign({}, state.boxes[Number(current.index - xLength)]);
           neighbors.push({ ...box, pos: 'top' });
         }
 
-        if (current.x + 1 < state.xLength && current.type !== 'wall') {
+        if (current.x + 1 < xLength && current.type !== 'wall') {
           const box = Object.assign({}, state.boxes[current.index + 1]);
           neighbors.push({ ...box, pos: 'right' });
         }
 
-        if (current.y + 1 < state.yLength && current.type !== 'wall') {
-          const box = Object.assign({}, state.boxes[current.index + state.xLength]);
+        if (current.y + 1 < yLength && current.type !== 'wall') {
+          const box = Object.assign({}, state.boxes[Number(current.index + xLength)]);
           neighbors.push({ ...box, pos: 'bottom' });
         }
         for (let neighbor of neighbors) {
@@ -170,7 +186,7 @@ const boardSlice = createSlice({
       for (let i = 0; i < state.path.length; i++) {
         const box = state.path[i];
         if (box.type === 'start' || box.type === 'end') continue;
-        state.boxes[box.index] = {...box, type: 'path'};
+        state.boxes[box.index] = { ...box, type: 'path' };
       }
       state.path = [];
       // state.boxes[state.start.index] = {...state.start, type: 'path'};
@@ -183,6 +199,6 @@ const boardSlice = createSlice({
 // Extract the action creators object and the reducer
 const { actions, reducer } = boardSlice
 // Extract and export each action creator by name
-export const { setXY, setBoxes, setBox, setPick, setPath, setFoundedPath, clearFoundedPath } = actions
+export const { setXLength, setYLength, setXY, setBoxes, setBox, setPick, setPath, setFoundedPath, clearFoundedPath } = actions
 // Export the reducer, either as a default or named export
 export default reducer
