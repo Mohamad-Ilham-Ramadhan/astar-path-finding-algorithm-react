@@ -28,6 +28,7 @@ const boardSlice = createSlice({
     },
     setBoxes(state, action) {
       console.log('setBoxes called');
+      state.path = []; // remove bug: bug generate board: there is affected box (wall box become path box) by previous path-finding when we generate a new board
       state.boxes = [];
       const indexes = state.xLength * state.yLength;
       for (let i = 0; i < indexes; i++) {
