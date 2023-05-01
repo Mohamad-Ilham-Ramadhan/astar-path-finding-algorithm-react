@@ -9,7 +9,9 @@ const setPathListener = createListenerMiddleware();
 setPathListener.startListening({
   actionCreator: setPath,
   effect: async (action, listenerApi) => {
-    const path = Object.assign([], listenerApi.getState().board.path); // supaya nanti di splice gak mutate yang di state (immerjs)
+    const path = Object.assign([], listenerApi.getState().board.path); // harus terpisah kaya gini kalo gak error
+    const { start, end} = Object.assign([], listenerApi.getState().board); // supaya nanti di splice gak mutate yang di state (immerjs)
+    if (start === null || end === null) return;
     if (path.length === 0) {
       return alert('The end node is not reachable! Please try to remove some walls.');
     }

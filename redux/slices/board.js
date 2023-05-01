@@ -71,6 +71,15 @@ const boardSlice = createSlice({
     },
     //  where A* algorithm is used
     setPath(state, action) {
+
+      if (state.start === null && state.end === null) {
+        return alert('Choose a start and end path first.');
+      } else if (state.end === null) {
+        return alert('Choose a end path first.');
+      } else if (state.start === null) {
+        return alert('Choose a start path first.');
+      }
+      
       // convert to cartesian coordinates
       const start = Object.assign({}, state.start);
       const xLength = Number(state.xLength);
