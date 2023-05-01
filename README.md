@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 # a* path-finding javascript
 A maze path-finding app built with JavaScript using A* algorithm
-![Full App Overview](/readme-images/app.png "The App")
+![Full App Overview](/readme-images/app2.png "The App")
 
 # How to use
 
