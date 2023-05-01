@@ -24,9 +24,13 @@ A maze path-finding app built with JavaScript using A* algorithm
 
 ### Selecting start, end, wall node
 ![Node options](/readme-images/options.png "Node options")
+
 You can press 's' or 'S' key to select start node.
+
 You can press 'e' or 'E' key to select end node.
+
 You can press 'w' or 'W' key to select/delete wall node.
+
 
 ### Start path-finding and clearing founded path
 You can press 'spacebar' to start path-finding.
